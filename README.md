@@ -404,7 +404,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 1 - `ml-risk-score`** (400 ms - depends on: fetch-bytecode) - ML risk score. Analysis: kNN/MLP scoring over scan features. Payload: all leads -> risk score.
 - **Level 2 - `audit-report`** (300 ms - depends on: scan-reentrancy, scan-access-control, scan-parallel-execution, scan-unchecked-calls, ml-risk-score) - Build the audit report. Analysis: Severity-ranked merge of all five scans. Payload: leads+score -> audit report.
 
-### malware-sandbox-suite
+### Malware-Sandbox-Suite
 
 2 agents - 5 subtasks - 4 levels - critical path 1400 ms - sequential 1700 ms - speedup 1.21x
 
@@ -414,7 +414,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 2 - `sandbox-detonation-plan`** (500 ms - depends on: static-triage) - Plan sandbox detonation. Analysis: Isolated-run plan only - the lab never detonates. Payload: triage -> detonation plan.
 - **Level 3 - `threat-report`** (300 ms - depends on: hash-and-ioc, sandbox-detonation-plan) - Build the threat report. Analysis: Triage + IOC + plan into one report. Payload: artefacts -> threat report.
 
-### app-data-compressor
+### App-Data-Compressor
 
 4 agents - 7 subtasks - 4 levels - critical path 1200 ms - sequential 2400 ms - speedup 2.0x
 
@@ -426,7 +426,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 2 - `compress-shard-4`** (400 ms - depends on: chunk-cdc) - Compress shard 4. Analysis: zlib over chunk subset 4. Payload: chunks -> shard 4.
 - **Level 3 - `encrypt-and-pack`** (300 ms - depends on: compress-shard-1, compress-shard-2, compress-shard-3, compress-shard-4) - Encrypt and pack. Analysis: Shard manifest + integrity hashes. Payload: 4 shards -> packed archive.
 
-### honeyroot-x
+### Honeyroot-X
 
 3 agents - 5 subtasks - 3 levels - critical path 1100 ms - sequential 2300 ms - speedup 2.09x
 
@@ -436,7 +436,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 1 - `collect-attackers`** (600 ms - depends on: deploy-bait) - Collect attacker metadata. Analysis: Source IPs, ASNs, cadence. Payload: logs -> attacker set.
 - **Level 2 - `analyse-bruteforce`** (300 ms - depends on: listen-ssh, listen-services, collect-attackers) - Analyse brute force. Analysis: Credential-stuffing pattern mining. Payload: attempt logs -> bruteforce report.
 
-### malware-research-hub
+### Malware-Research-Hub
 
 3 agents - 5 subtasks - 3 levels - critical path 1100 ms - sequential 2000 ms - speedup 1.82x
 
@@ -446,7 +446,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 1 - `classify-behaviour`** (500 ms - depends on: ingest-sample-set) - Classify behaviour. Analysis: Behaviour tags (stealer, loader, RAT...). Payload: registry -> behaviour map.
 - **Level 2 - `publish-research-en-es`** (300 ms - depends on: catalog-families, extract-iocs, classify-behaviour) - Publish research (EN/ES). Analysis: Bilingual write-up assembly. Payload: catalogue+IOCs+behaviour -> publication.
 
-### globe-visualizer-frontend
+### Globe-Visualizer-Frontend
 
 3 agents - 5 subtasks - 3 levels - critical path 800 ms - sequential 1600 ms - speedup 2.0x
 
@@ -456,7 +456,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 1 - `render-ui`** (400 ms - depends on: bind-data) - Render globe UI. Analysis: Controls, legend, stats. Payload: dataset -> UI layer.
 - **Level 2 - `package-frontend`** (200 ms - depends on: render-points, render-arcs, render-ui) - Package the frontend. Analysis: Bundle the three layers. Payload: layers -> frontend build.
 
-### globe-visualizer-backend
+### Globe-Visualizer-Backend
 
 2 agents - 4 subtasks - 3 levels - critical path 1000 ms - sequential 1400 ms - speedup 1.4x
 

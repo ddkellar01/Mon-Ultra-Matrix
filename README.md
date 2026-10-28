@@ -540,6 +540,7 @@ flowchart TD
     G -->|no| I["Failing test names the broken module"]
 
 vuln_scan.py (repo root)
+
 flowchart TD
     A["scan_source: source code text"] --> B["Regex SOURCE_PATTERNS"]
     B --> C["sql-injection, hardcoded-secret, eval-exec, weak-hash, debug-enabled"]
@@ -556,6 +557,7 @@ flowchart TD
     G2 --> H
     
 Dockerfile
+
 flowchart TD
     A["FROM python:3.12-slim"] --> B["WORKDIR /app"]
     B --> C["COPY pyproject.toml + 
@@ -575,6 +577,7 @@ flowchart TD
     E --> F["Container runs CLI stats and exits"]
     
 docker-compose.ultra.ym
+
 flowchart TD
     A["FILE REALITY CHECK"] --> B["Despite the name, this file is NOT a compose file"]
     B --> C["Content: the 58 Agents markdown table"]
@@ -584,6 +587,7 @@ flowchart TD
     F --> G["Note: the real ultra fleet compose file is missing - see flag in delivery"]
     
 pyproject.toml
+
 flowchart TD
     A["pyproject.toml"] --> B["build-system: setuptools 61+, build_meta backend"]
     A --> C["project: mon-ultra-matrix 0.1.0, MIT, Python 3.10+"]
@@ -593,7 +597,9 @@ flowchart TD
     C --> F
     D --> F
     E --> F
+    
 requirements.txt
+
 flowchart TD
     A["requirements.txt"] --> B["Zero runtime dependencies - pure stdlib"]
     B --> C["Only optional input: GEMINI_API_KEY env var"]
@@ -601,6 +607,7 @@ flowchart TD
     C --> E["Unset: deterministic offline mode, everything still runs"]
     
 .gitignore
+
 flowchart TD
     A["Git working tree"] --> B{"Path matches a pattern?"}
     B -->|__pycache__ or .pyc| C["Ignored: Python cache"]
@@ -610,6 +617,7 @@ flowchart TD
     B -->|no match| G["Tracked normally"]
     
 docs/CURRICULUM.md
+
 flowchart TD
     A["Step 1: EVM basics - disassemble, selectors"] --> B["Step 2: Token RE - prove ERC20 from selectors"]
     B --> C["Step 3: Proxy RE - DELEGATECALL to implementation"]
@@ -622,6 +630,7 @@ flowchart TD
     I --> J["Step 10: Ship - testnet plan only after matrix green"]
     
 docs/MERGE_MAP.md
+
 flowchart TD
     A["Merge Map document"] --> B["First merge: 7 GitHub repos to native modules"]
     A --> C["Second merge: 10 Docker Hub images to modules + registry"]
@@ -631,6 +640,7 @@ flowchart TD
     D --> E
     
 docs/MONAD_ARCHITECTURE.md
+
 flowchart TD
     A["Monad facts sheet"] --> B["Chain: L1, mainnet Nov 24 2025, full EVM compat"]
     A --> C["Performance: 10,000 TPS, 0.4s blocks, 0.8s finality"]
@@ -641,6 +651,7 @@ flowchart TD
     A --> H["Top protocols: Aave, Kuru, Uniswap, PancakeSwap, Balancer, Curve"]
     
 labs/README.md
+
 flowchart TD
     A["Labs: educational, local-only samples"] --> B["Sample dispatcher bytecode embedded in tests"]
     B --> C["Disassemble with analyze"]
@@ -650,6 +661,7 @@ flowchart TD
     A --> G["Scope rule: only wallets + contracts you own or may study"]
     
 README.md
+
 flowchart TD
     A["README.md: project front door"] --> B["Cover image + badges: CI + Docker Publish"]
     B --> C["Badge wall: stack, Web3, platform, low-level, DevOps, cloud"]
@@ -661,12 +673,14 @@ flowchart TD
     H --> I["Structure tree + install + run instructions"]
     
 LICENSE
+
 flowchart TD
     A["LICENSE: MIT"] --> B["Anyone may use, copy, modify, distribute"]
     B --> C["Condition: keep the copyright + license notice"]
     C --> D["Software as-is, no warranty"]
     
 IMG_5224.png
+
 flowchart TD
     A["IMG_5224.png: cover artwork, 3.5 MB"] --> B["Referenced at the top of README.md"]
     B --> C["First visual a visitor sees on the repo"]

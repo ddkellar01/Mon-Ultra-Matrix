@@ -1,5 +1,7 @@
 # Mon-Ultra-Matrix
 
+[![Repo views](https://hits.sh/github.com/ddkellar01/Mon-Ultra-Matrix.svg?style=flat-square)](https://hits.sh/github.com/ddkellar01/Mon-Ultra-Matrix/)
+
 ## 🧰 Tech Stack & Architecture Badges
 
 ![CI](https://img.shields.io/badge/CI-GITHUB_ACTIONS-2088FF?style=flat-square&logo=githubactions&logoColor=white)

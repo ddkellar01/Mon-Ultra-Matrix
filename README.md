@@ -443,6 +443,186 @@ flowchart TD
     C --> F
     D --> F
     E --> F
+
+25/48 — src/mon_ultra_matrix/protocol_re.py
+
+flowchart TD
+    A["Input: function names from a contract"] --> B["Join + lowercase names"]
+    B --> C["For each protocol in PROTOCOLS DB"]
+    C --> D{"Any marker in names? Aave deposit/borrow, Kuru placeOrder, Uniswap unlock/swap, Curve exchange..."}
+    D -->|yes| E["Add protocol hit"]
+    D -->|no| F["Skip"]
+    E --> G["Return fingerprint hits"]
+    F --> G
+
+26/48 — src/mon_ultra_matrix/report.py
+
+flowchart TD
+    A["Inputs: registry summary, optional matrix, optional contract"] --> B["Header + monad_stats summary line"]
+    B --> C["Projects kept: N successful - all failures removed"]
+    C --> D{"Matrix given?"}
+    D -->|yes| E["Add line: successful cells kept, failed cells removed"]
+    D -->|no| F["Skip matrix line"]
+    E --> G{"Contract given?"}
+    F --> G
+    G -->|yes| H["Add contract line"]
+    G -->|no| I["Return markdown report"]
+    H --> I
+
+27/48 — src/mon_ultra_matrix/rpc_inspector.py
+
+flowchart TD
+    A["inspect_endpoint: MonadClient for RPC URL"] --> B["chain_id + block_number calls"]
+    B --> C["Reachable = chain_id is not None"]
+    A2["inspect_all: run per endpoint"] --> B2["Default RPCs: rpc.monad.xyz, rpc1, monadinfra"]
+    A3["inspect_contract: get_code"] --> D3{"Code empty or 0x?"}
+    D3 -->|yes| E3["is_contract: False"]
+    D3 -->|no| F3["evm_re analyze + forensics risk_flags"]
+    F3 --> G3["is_contract: True + analysis + flags"]
+
+28/48 — src/mon_ultra_matrix/sandbox.py
+
+flowchart TD
+
+    A["run_experiment: callable + name"] --> B["Execute callable"]
+    B --> C{"Raised?"}
+    C -->|no| D["SUCCESS: result string, first 500 chars"]
+    C -->|yes| E["FAILED: exception type + message + traceback tail"]
+    D --> F["Return outcome dict to caller"]
+    E --> F
+    F --> G["Note: the registry decides keeping - failures are removed there"]
+
+29/48 — src/mon_ultra_matrix/scout.py
+
+flowchart TD
+    A["Input: topics"] --> B["SOURCES: github, defillama, coingecko, monad-explorer"]
+    B --> C["Per topic: search, rank by stars / activity / TVL"]
+    C --> D["Queue hits for sandbox experiment"]
+    D --> E["Return topic action list"]
+
+30/48 — src/mon_ultra_matrix/standards.py
+
+flowchart TD
+    A["Input: contract analysis dict"] --> B["audit: run 4 ISO/IEC-flavoured controls"]
+    B --> C["access-control: no uncontrolled SELFDESTRUCT"]
+    B --> D["upgrade-transparency: DELEGATECALL only behind visible dispatcher"]
+    B --> E["auditability: state writes on-chain"]
+    B --> F["interface-clarity: selectors enumerable"]
+    C --> G["Per-control pass / fail + note"]
+    D --> G
+    E --> G
+    F --> G
+    G --> H["score: fraction of controls passing, 3 decimals"]
+
+31/48 — src/mon_ultra_matrix/tx_tracer.py
+
+flowchart TD
+    A["TxGraph: add edges from, to, value, hash"] --> B["counterparties: all addresses touching an address"]
+    A --> C["total_out / total_in: sum values per direction"]
+    A --> D["hops: breadth-first walk, default max 3 hops"]
+    D --> E{"Frontier empty or hop limit?"}
+    E -->|no| D
+    E -->|yes| F["Return reached addresses, sorted"]
+    A2["parse_transfer_log: ERC-20 Transfer topics"] --> B2{"At least 3 topics?"}
+    B2 -->|no| C2["Return None"]
+    B2 -->|yes| D2["from = topic1 last 40 hex, to = topic2 last 40 hex"]
+
+32/48 — src/mon_ultra_matrix/vuln_scan.py
+
+flowchart TD
+    A["scan_source: source code text"] --> B["Regex SOURCE_PATTERNS"]
+    B --> C["sql-injection, hardcoded-secret, eval-exec, weak-hash, debug-enabled"]
+    C --> D["Hit: pattern name + remediation fix"]
+    A2["scan_contract: analysis dict"] --> B2{"SELFDESTRUCT?"}
+    B2 -->|yes| C2["Fix: remove or strictly gate"]
+    B2 --> D2{"DELEGATECALL?"}
+    D2 -->|yes| E2["Fix: pin + audit implementation"]
+    D2 --> F2{"Selectors but zero SSTORE?"}
+    F2 -->|yes| G2["Info: read-only contract surface"]
+    D --> H["Return hits"]
+    C2 --> H
+    E2 --> H
+    G2 --> H
+
+33/48 — scripts/smoke.py
+
+flowchart TD
+    A["smoke.py: add src to path"] --> B["Print monad summary"]
+    B --> C["Analyze sample bytecode, print result"]
+    C --> D["Temp registry: pipeline smoke-ok + smoke-fail 1/0"]
+    D --> E{"Assert summary = 1 kept, 1 successful, failures removed"}
+    E -->|pass| F["run_matrix on 2 targets x 2 checks"]
+    E -->|fail| X["AssertionError - smoke broken"]
+    F --> G{"Assert 4 cells, 0 removed"}
+    G -->|pass| H["Assert total_pulls = 6,699 + globe payload builds"]
+    G -->|fail| X
+    H --> I{"Assert unified agents over 0"}
+    I -->|pass| J["Print SMOKE OK"]
+    I -->|fail| X
+
+34/48 — tests/test_mon_ultra_matrix.py
+
+flowchart TD
+    A["pytest: 29 tests"] --> B["Core: stats, disassemble + selectors, abi, forensics + standards, txgraph, protocol fingerprint"]
+    A --> C["Rules: registry keeps success / removes failure, purge on disk, deployer gate, matrix removes failed cells, sandbox"]
+    A --> D["Modules: learners, entropy range, docker registry, deconstruction, vuln scan, bounty scope, contract audit"]
+    A --> E["Modules 2: malware sandbox static, compressor roundtrip, honeypot log, malware research IOCs, globe payload"]
+    A --> F["Planner: covers all repos, width = zero queue, per-repo numbers, unified = sum, gemini offline-safe, cycle rejected"]
+    B --> G{"All pass?"}
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+    G -->|yes| H["29 / 29 green"]
+    G -->|no| I["Failing test names the broken module"]
+
+35/48 — vuln_scan.py (repo root — identical to 32/48)
+
+flowchart TD
+    A["scan_source: source code text"] --> B["Regex SOURCE_PATTERNS"]
+    B --> C["sql-injection, hardcoded-secret, eval-exec, weak-hash, debug-enabled"]
+    C --> D["Hit: pattern name + remediation fix"]
+    A2["scan_contract: analysis dict"] --> B2{"SELFDESTRUCT?"}
+    B2 -->|yes| C2["Fix: remove or strictly gate"]
+    B2 --> D2{"DELEGATECALL?"}
+    D2 -->|yes| E2["Fix: pin + audit implementation"]
+    D2 --> F2{"Selectors but zero SSTORE?"}
+    F2 -->|yes| G2["Info: read-only contract surface"]
+    D --> H["Return hits"]
+    C2 --> H
+    E2 --> H
+    G2 --> H
+
+36/48 — Dockerfile
+
+flowchart TD
+    A["FROM python:3.12-slim"] --> B["WORKDIR /app"]
+    B --> C["COPY pyproject.toml + README.md"]
+    C --> D["COPY src and scripts"]
+    D --> E["RUN pip install --no-cache-dir -e ."]
+    E --> F["ENTRYPOINT: python -m mon_ultra_matrix"]
+    F --> G["CMD default: stats"]
+    G --> H["docker run image analyze / agents / reason - any CLI command"]
+
+37/48 — docker-compose.yml
+
+flowchart TD
+    A["docker compose up"] --> B["Service: mon-ultra-matrix"]
+    B --> C["build: local Dockerfile"]
+    C --> D["command: stats"]
+    D --> E["environment: GEMINI_API_KEY from shell env, empty allowed"]
+    E --> F["Container runs CLI stats and exits"]
+
+38/48 — docker-compose.ultra.yml
+
+flowchart TD
+    A["FILE REALITY CHECK"] --> B["Despite the name, this file is NOT a compose file"]
+    B --> C["Content: the 58 Agents markdown table"]
+    C --> D["Per-repo agent widths: 5, 5, 4, 4, 4, 4, 4, then 3s and 2s"]
+    D --> E["Unified total: 58 agents, zero queue latency"]
+    E --> F["Serial pool reuse: 5 agents, repos queue"]
+    F --> G["Note: the real ultra fleet compose file is missing - see flag in delivery"]
+
     
 ## The 58 - widest-level roster (the payload moment)
 

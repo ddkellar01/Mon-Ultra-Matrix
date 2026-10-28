@@ -623,6 +623,16 @@ flowchart TD
     E --> F["Serial pool reuse: 5 agents, repos queue"]
     F --> G["Note: the real ultra fleet compose file is missing - see flag in delivery"]
 
+39/48 — pyproject.toml
+flowchart TD
+    A["pyproject.toml"] --> B["build-system: setuptools 61+, build_meta backend"]
+    A --> C["project: mon-ultra-matrix 0.1.0, MIT, Python 3.10+"]
+    A --> D["packages.find: where = src layout"]
+    A --> E["pytest config: pythonpath src, testpaths tests"]
+    B --> F["pip install -e . works from these settings"]
+    C --> F
+    D --> F
+
     
 ## The 58 - widest-level roster (the payload moment)
 

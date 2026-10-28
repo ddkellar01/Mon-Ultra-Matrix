@@ -479,3 +479,63 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 2. **Widest level (the 58)** - the heavy parallel analysis: scans, traces, renders, decompositions. This level sizes the pool.
 3. **Convergence** - validators, diffing and report builders merge parallel output; unverified or failed work is removed here, never recorded.
 4. **Exit** - publishers and the deployer ship successes only; deploys are testnet-first and a FAILED project never deploys.
+
+🟣 Mon-Ultra-Matrix/
+├── ⚙️ .github/
+│   └── 🔄 workflows/
+│       ├── ✅ ci.yml                294 B
+│       └── 🐳 docker-publish.yml    650 B
+├── 📚 docs/
+│   ├── 🎓 CURRICULUM.md             984 B
+│   ├── 🗺️ MERGE_MAP.md             4.3 KB
+│   └── 🏛️ MONAD_ARCHITECTURE.md    1.0 KB
+├── 🧪 labs/
+│   └── 📖 README.md                 603 B
+├── 📜 scripts/
+│   └── 💨 smoke.py                  1.3 KB
+├── 📦 src/
+│   └── 🟣 mon_ultra_matrix/
+│       ├── 📦 __init__.py           132 B
+│       ├── ▶️ __main__.py          50 B
+│       ├── 🔤 abi_re.py             1007 B
+│       ├── 🎯 bounty.py             799 B
+│       ├── 🖥️ cli.py               2.2 KB
+│       ├── 🗜️ compressor.py        913 B
+│       ├── 📜 contract_audit.py     1.3 KB
+│       ├── 🧱 deconstruction.py     1022 B
+│       ├── 🚀 deployer.py           448 B
+│       ├── 🐳 docker_images.py      2.1 KB
+│       ├── ⚙️ evm_re.py            2.2 KB
+│       ├── 🧪 experiment.py         2.1 KB
+│       ├── 🔍 forensics.py          910 B
+│       ├── 🧠 gemini_planner.py     10.0 KB
+│       ├── 🌍 globe.py              996 B
+│       ├── 🍯 honeypot.py           798 B
+│       ├── 📈 learner.py            2.4 KB
+│       ├── 🦠 malware_research.py   872 B
+│       ├── 🧫 malware_sandbox.py    762 B
+│       ├── 🎲 matrix_runner.py      748 B
+│       ├── 🟣 monad_client.py       1.1 KB
+│       ├── 📊 monad_stats.py        2.4 KB
+│       ├── ⛓️ protocol_re.py       1.0 KB
+│       ├── 📋 report.py             551 B
+│       ├── 🔎 rpc_inspector.py      694 B
+│       ├── 🏝️ sandbox.py           495 B
+│       ├── 🔭 scout.py              322 B
+│       ├── 📏 standards.py          903 B
+│       ├── 🧵 tx_tracer.py          1.1 KB
+│       └── 🛡️ vuln_scan.py         1.2 KB
+├── ✅ tests/
+│   └── 🧪 test_mon_ultra_matrix.py  7.8 KB
+├── 🙈 .gitignore                    70 B
+├── 🐳 docker-compose.ultra.ym       1.3 KB
+├── 🐳 docker-compose.yml            122 B
+├── 🐳 Dockerfile                    204 B
+├── 🖼️ IMG_5224.png                 3495.0 KB
+├── ⚖️ LICENSE                      1.1 KB
+├── 📦 pyproject.toml                457 B
+├── 📖 README.md                     42.6 KB
+├── 📋 requirements.txt              99 B
+└── 🛡️ vuln_scan.py                 1.2 KB
+
+48 files · 8 directories · live from github.com/ddkellar01/Mon-Ultra-Matrix

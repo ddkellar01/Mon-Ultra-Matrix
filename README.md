@@ -114,3 +114,80 @@ Verified live 2026-10-27, 6,699 pulls total: deconstruction (668), vulnerabiliti
  Here's the full breakdown:
 How the 58 exists: Gemini Pro Thinking (Extended) — gemini-2.5-pro, thinkingBudget 32768, out of Google-FlowX — decomposes each of the 17 repos into a subtask graph. The planner levels each graph; agents = the widest parallel level, so queue wait is 0 and wall-clock = the critical path. The 58 is the sum of all 17 widths (3+3+4+3+4+4+3+3+4+5+5+2+4+3+3+3+2), all firing at once. The roster below is the payload moment — the exact agents working simultaneously at each pipeline's widest level.
 Diagram (also in the doc, renders on GitHub):
+
+flowchart TD
+    G["GEMINI PRO THINKING (EXTENDED)<br/>gemini-2.5-pro - thinkingBudget 32768<br/>decomposes 17 repos into subtask graphs"] --> P["DETERMINISTIC PLANNER<br/>levels each graph - agents = widest level<br/>queue wait 0 - wall-clock = critical path"]
+    P --> A["17 SQUADS at widest level = 58 AGENTS<br/>scouts - crawlers - traces - renders - scans - recon - listeners"]
+    A --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
+    C --> D["DEPLOYER - testnet-first<br/>successes only"]
+
+The 58 — duties and work payloads, by squad:
+Autonomous-Tech-Infrastructure-Platform — 3 (level 0, scouts)
+•  scout-github — scout OSS repos; fit/activity scoring; query → ranked repo list
+•  scout-defillama — scout protocols; TVL/fees analysis; chain filter → protocol metrics
+•  scout-docs — scout docs/specs; API surface extraction; doc URLs → spec notes
+ISO-IECx — 3 (level 0, crawlers)
+•  crawl-iso / crawl-iec / crawl-owasp — crawl each standards source; clause + control extraction; sources → ISO clauses / IEC clauses / OWASP controls (then one Gemini study agent fuses them)
+IvyTech-Nexus-Omni-Institution — 4 (level 1, builders)
+•  build-curriculum — sequence topics/objectives; corpus → curriculum
+•  build-kb — chunk + index for retrieval; corpus → KB index
+•  build-labs — design hands-on exercises; corpus → lab set
+•  build-assessments — questions + answer keys; corpus → assessment set
+Crypto-Recovery-Forensics — 3 (level 1, tracers)
+•  utxo-trace — UTXO address clustering + hop graph; tx dataset → UTXO graph
+•  evm-trace — internal calls, token transfers, counterparties; tx dataset → EVM graph
+•  key-derivation-analysis — BIP39/BIP32 path + entropy checks; seed-path data → derivation report
+Google-FlowX — 4 (level 1, renderers)
+•  render-chunk-1..4 — NNL/ML parallel rendering of 4 film segments; storyboard → frame chunks (after 3 Gemini screenwriting agents: plot, dialogue, storyboard)
+WEB3-insp3ct — 4 (level 1, inspectors)
+•  inspect-rpc — chain ID, height, method exposure; target → RPC findings
+•  inspect-dom — script + wallet-hook analysis; target → DOM findings
+•  inspect-network — endpoints, sockets, data flows; target → network findings
+•  inspect-mobile — deep links + app endpoints; target → mobile findings
+quantum-ecosystem — 3 (level 1)
+•  monad-contract-audit — full vuln scan + parallel-execution notes; bytecode → audit findings
+•  sandbox-detonation — isolated behaviour observation plan, never on host; candidate → behaviour notes
+•  fund-balancer — flow in/out reconciliation (analysis only); tx data → balance sheet
+deconstruction — 3 (level 1, decomposers)
+•  decompose-frontend — component tree + framework ID; inventory → frontend map
+•  decompose-backend — services, APIs, stores; inventory → backend map
+•  decompose-logic — business rules + invariants; inventory → logic map
+vulnerabilitiesx — 4 (level 1, lab scanners)
+•  scan-vulnerable-web — OWASP hits on unsafe web build; web target → findings
+•  scan-vulnerable-api — auth/input pattern hits; API target → findings
+•  scan-bot-exploits — automation-abuse patterns; targets → exploit findings
+•  scan-secure-variants — confirm fixed builds resist the same patterns; secure targets → resistance report
+bug-bounty-xterminator — 5 (level 1, recon — after the scope-check gate)
+•  recon-web — endpoints, JS, headers, stack; target → web map
+•  recon-api — route + schema discovery; target → API map
+•  recon-mobile — app surface, endpoints, storage; app → mobile map
+•  recon-binary — triage: type, entropy, strings, imports; binary → triage sheet
+•  recon-infra — DNS, certs, exposed services (in-scope only); domain → infra map
+monad-vul-x — 5 (level 1, contract scanners — all fed by one bytecode fetch)
+•  scan-reentrancy — CALL-before-state-update hunt; bytecode → reentrancy leads
+•  scan-access-control — owner/onlyOwner + tx.origin patterns; bytecode → access leads
+•  scan-parallel-execution — shared-state ordering races unique to Monad; bytecode → race leads
+•  scan-unchecked-calls — low-level CALL return-value handling; bytecode → unchecked-call leads
+•  ml-risk-score — kNN/MLP scoring over scan features; leads → risk score
+malware-sandbox-suite — 2 (level 1, static only)
+•  static-triage — format, entropy, strings, IOC pre-scan; sample → triage sheet
+•  hash-and-ioc — SHA-256 + domain/IP/wallet sweep; sample → IOC list
+app-data-compressor — 4 (level 2, shard compressors)
+•  compress-shard-1..4 — zlib over 4 CDC chunk subsets in parallel; chunks → 4 shards (then one agent encrypts + packs)
+honeyroot-x — 3 (level 1, listeners)
+•  listen-ssh — SSH auth-attempt logging; bait → attempt log
+•  listen-services — probe/banner-grab logging; bait → probe log
+•  collect-attackers — source IPs, ASNs, cadence; logs → attacker set
+malware-research-hub — 3 (level 1)
+•  catalog-families — family clustering by traits; registry → family catalogue
+•  extract-iocs — hashes, domains, IPs, wallets; registry → IOC set
+•  classify-behaviour — behaviour tags (stealer/loader/RAT…); registry → behaviour map
+globe-visualizer-frontend — 3 (level 1, renderers)
+•  render-points — lat/lon markers; dataset → points layer
+•  render-arcs — origin-destination arcs; dataset → arcs layer
+•  render-ui — controls, legend, stats; dataset → UI layer
+globe-visualizer-backend — 2 (level 1)
+•  build-points — aggregate events to map points; activity → points JSON
+•  build-arcs — pair flows into arcs; activity → arcs JSON
+How a payload flows: ① Intake (level 0) — scouts/crawlers/ingesters/fetchers pull raw material in parallel → ② the 58 — heavy parallel analysis (scans, traces, renders, decompositions) → ③ Convergence — validators and report builders merge output; unverified/failed work is removed here, never recorded → ④ Exit — publishers + testnet-first deployer, successes only.
+The doc also carries the complete 104-subtask roster — every level of every pipeline with dependencies and ms estimates —

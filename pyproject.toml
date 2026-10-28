@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "mon-ultra-matrix"
+version = "0.1.0"
+description = "Monad reverse-engineering lab: experiment, test, learn, deploy - successful projects only, all failures removed"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -110,3 +110,7 @@ Verified live 2026-10-27, 6,699 pulls total: deconstruction (668), vulnerabiliti
 | malware-research-hub | `malware_research.py` - IOC extraction + sample catalog |
 | globe-visualizer-frontend | `globe.py` - payload consumer + render snippet |
 | globe-visualizer-backend | `globe.py` - points/arcs payload builder |
+
+ Here's the full breakdown:
+How the 58 exists: Gemini Pro Thinking (Extended) — gemini-2.5-pro, thinkingBudget 32768, out of Google-FlowX — decomposes each of the 17 repos into a subtask graph. The planner levels each graph; agents = the widest parallel level, so queue wait is 0 and wall-clock = the critical path. The 58 is the sum of all 17 widths (3+3+4+3+4+4+3+3+4+5+5+2+4+3+3+3+2), all firing at once. The roster below is the payload moment — the exact agents working simultaneously at each pipeline's widest level.
+Diagram (also in the doc, renders on GitHub):

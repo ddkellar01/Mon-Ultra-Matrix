@@ -633,6 +633,24 @@ flowchart TD
     C --> F
     D --> F
 
+40/48 — requirements.txt
+
+flowchart TD
+    A["requirements.txt"] --> B["Zero runtime dependencies - pure stdlib"]
+    B --> C["Only optional input: GEMINI_API_KEY env var"]
+    C --> D["Set: learner + planner can call Gemini"]
+    C --> E["Unset: deterministic offline mode, everything still runs"]
+
+41/48 — .gitignore
+
+flowchart TD
+    A["Git working tree"] --> B{"Path matches a pattern?"}
+    B -->|__pycache__ or .pyc| C["Ignored: Python cache"]
+    B -->|.pytest_cache| D["Ignored: test cache"]
+    B -->|projects_registry.jsonl| E["Ignored: runtime registry data"]
+    B -->|egg-info| F["Ignored: build artifacts"]
+    B -->|no match| G["Tracked normally"]
+
     
 ## The 58 - widest-level roster (the payload moment)
 

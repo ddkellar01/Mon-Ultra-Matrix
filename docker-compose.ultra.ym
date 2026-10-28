@@ -1,0 +1,26 @@
+## Agents - Gemini Pro Thinking (Extended), per repo + unified
+
+From Google-FlowX (the Gemini Pro Thinking repo in this merge): `gemini_planner.py` decomposes each repo's work into a subtask graph and recommends exactly the agent count that makes queue latency zero - the widest parallel level. More agents buy nothing, fewer add queue wait. Wall-clock at the recommended count equals the critical path.
+
+| Agents | Repo |
+|---|---|
+| 5 | bug-bounty-xterminator |
+| 5 | monad-vul-x |
+| 4 | IvyTech-Nexus-Omni-Institution |
+| 4 | Google-FlowX |
+| 4 | WEB3-insp3ct |
+| 4 | vulnerabilitiesx |
+| 4 | app-data-compressor |
+| 3 | Autonomous-Tech-Infrastructure-Platform |
+| 3 | ISO-IECx |
+| 3 | Crypto-Recovery-Forensics |
+| 3 | quantum-ecosystem |
+| 3 | deconstruction |
+| 3 | honeyroot-x |
+| 3 | malware-research-hub |
+| 3 | globe-visualizer-frontend |
+| 2 | malware-sandbox-suite |
+| 2 | globe-visualizer-backend |
+| **58** | **Mon-Ultra-Matrix (unified - all 17 pipelines at once, zero queue latency)** |
+
+Reusing one pool serially needs only 5 agents (the largest single-repo width), but repos then queue behind each other and latency is no longer zero. With `GEMINI_API_KEY` set, `call_gemini()` asks Gemini Pro (`gemini-2.5-pro`, extended thinking, thinkingBudget 32768) to decompose new tasks into the same graph format; offline, the deterministic planner is authoritative.

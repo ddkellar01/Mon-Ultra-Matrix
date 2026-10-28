@@ -1,0 +1,6 @@
+services:
+  mon-ultra-matrix:
+    build: .
+    command: stats
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}

@@ -126,50 +126,30 @@ Source of truth: `src/mon_ultra_matrix/gemini_planner.py` (from Google-FlowX, th
 **Unified Mon-Ultra-Matrix = 58 agents** - all 17 pipelines at once, each at its own zero-latency width: 3+3+4+3+4+4+3+3+4+5+5+2+4+3+3+3+2 = 58. Reusing one pool of 5 serially also works, with queue wait.
 
 ## Full Architecture Diagram and Diagrams 
-```mermaid
+.github/workflows/ci.yml
 flowchart TD
-    G["GEMINI PRO THINKING - EXTENDED<br/>gemini-2.5-pro, thinkingBudget 32768<br/>17 repos decomposed into subtask graphs"] --> P["PLANNER<br/>levels each graph<br/>agents = widest level - queue wait 0"]
-    P --> S0["Autonomous-Tech-Infrastructure-Platform - 3 agents"]
-    S0 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S1["ISO-IECx - 3 agents"]
-    S1 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S2["IvyTech-Nexus-Omni-Institution - 4 agents"]
-    S2 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S3["Crypto-Recovery-Forensics - 3 agents"]
-    S3 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S4["Google-FlowX - 4 agents"]
-    S4 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S5["WEB3-insp3ct - 4 agents"]
-    S5 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S6["quantum-ecosystem - 3 agents"]
-    S6 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S7["deconstruction - 3 agents"]
-    S7 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S8["vulnerabilitiesx - 4 agents"]
-    S8 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S9["bug-bounty-xterminator - 5 agents"]
-    S9 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S10["monad-vul-x - 5 agents"]
-    S10 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S11["malware-sandbox-suite - 2 agents"]
-    S11 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S12["app-data-compressor - 4 agents"]
-    S12 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S13["honeyroot-x - 3 agents"]
-    S13 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S14["malware-research-hub - 3 agents"]
-    S14 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S15["globe-visualizer-frontend - 3 agents"]
-    S15 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    P --> S16["globe-visualizer-backend - 2 agents"]
-    S16 --> C["CONVERGENCE<br/>validate - diff - report<br/>failures removed, never recorded"]
-    C --> D["DEPLOYER - testnet-first, successes only"]
-```
-
-Mon-Ultra-Matrix — Mermaid flowcharts for every script
-One flowchart per Python file in the live repo (33 files), drawn from the actual code on main.
-Paste any block into a README or docs page inside a mermaid fence and GitHub renders it.
-
+    A["Trigger: push or pull_request"] --> B["Job test on ubuntu-latest"]
+    B --> C["actions/checkout v4"]
+    C --> D["setup-python v5: Python 3.12"]
+    D --> E["pip install -e . plus pytest"]
+    E --> F["pytest -q: 29 tests"]
+    F --> G{"Tests pass?"}
+    G -->|no| H["CI red - stop"]
+    G -->|yes| I["python scripts/smoke.py"]
+    I --> J{"Smoke OK?"}
+    J -->|yes| K["CI green"]
+    J -->|no| H
+.github/workflows/docker-publish.yml
+flowchart TD
+    A{"Trigger?"} -->|push to main| B["Job publish on ubuntu-latest"]
+    A -->|push tag v star| B
+    A -->|workflow_dispatch manual| B
+    B --> C["actions/checkout v4"]
+    C --> D["docker/setup-buildx-action v3"]
+    D --> E["docker/login-action v3: DOCKERHUB_USERNAME + DOCKERHUB_TOKEN secrets"]
+    E --> F["docker/build-push-action v6: build root Dockerfile, push true"]
+    F --> G["Tags: latest + commit SHA"]
+    G --> H["Image live on Docker Hub"]
 src/mon_ultra_matrix/init.py
 flowchart TD
     A["Package imported"] --> B["Set __version__ = 0.1.0"]
@@ -421,7 +401,7 @@ flowchart TD
     B --> C["POST via urllib"]
     C --> D{"Request succeeded?"}
     D -->|yes| E["Return result field"]
-    D -->|no, any exception| F["Return None - never raises"]
+    D -->|error| F["Return None - never raises"]
     E --> G["block_number: eth_blockNumber to int"]
     E --> H["get_code: eth_getCode latest"]
     E --> I["get_balance: eth_getBalance to int"]
@@ -574,9 +554,124 @@ flowchart TD
     C2 --> H
     E2 --> H
     G2 --> H
-    NOTE["Note: root copy is byte-identical to src/mon_ultra_matrix/vuln_scan.py"] --- A
-
-
+    
+Dockerfile
+flowchart TD
+    A["FROM python:3.12-slim"] --> B["WORKDIR /app"]
+    B --> C["COPY pyproject.toml + 
+    README.md"]
+    C --> D["COPY src and scripts"]
+    D --> E["RUN pip install --no-cache-dir -e ."]
+    E --> F["ENTRYPOINT: python -m mon_ultra_matrix"]
+    F --> G["CMD default: stats"]
+    G --> H["docker run image analyze / agents / reason - any CLI command"]
+    
+docker-compose.yml
+flowchart TD
+    A["docker compose up"] --> B["Service: mon-ultra-matrix"]
+    B --> C["build: local Dockerfile"]
+    C --> D["command: stats"]
+    D --> E["environment: GEMINI_API_KEY from shell env, empty allowed"]
+    E --> F["Container runs CLI stats and exits"]
+    
+docker-compose.ultra.ym
+flowchart TD
+    A["FILE REALITY CHECK"] --> B["Despite the name, this file is NOT a compose file"]
+    B --> C["Content: the 58 Agents markdown table"]
+    C --> D["Per-repo agent widths: 5, 5, 4, 4, 4, 4, 4, then 3s and 2s"]
+    D --> E["Unified total: 58 agents, zero queue latency"]
+    E --> F["Serial pool reuse: 5 agents, repos queue"]
+    F --> G["Note: the real ultra fleet compose file is missing - see flag in delivery"]
+    
+pyproject.toml
+flowchart TD
+    A["pyproject.toml"] --> B["build-system: setuptools 61+, build_meta backend"]
+    A --> C["project: mon-ultra-matrix 0.1.0, MIT, Python 3.10+"]
+    A --> D["packages.find: where = src layout"]
+    A --> E["pytest config: pythonpath src, testpaths tests"]
+    B --> F["pip install -e . works from these settings"]
+    C --> F
+    D --> F
+    E --> F
+requirements.txt
+flowchart TD
+    A["requirements.txt"] --> B["Zero runtime dependencies - pure stdlib"]
+    B --> C["Only optional input: GEMINI_API_KEY env var"]
+    C --> D["Set: learner + planner can call Gemini"]
+    C --> E["Unset: deterministic offline mode, everything still runs"]
+    
+.gitignore
+flowchart TD
+    A["Git working tree"] --> B{"Path matches a pattern?"}
+    B -->|__pycache__ or .pyc| C["Ignored: Python cache"]
+    B -->|.pytest_cache| D["Ignored: test cache"]
+    B -->|projects_registry.jsonl| E["Ignored: runtime registry data"]
+    B -->|egg-info| F["Ignored: build artifacts"]
+    B -->|no match| G["Tracked normally"]
+    
+docs/CURRICULUM.md
+flowchart TD
+    A["Step 1: EVM basics - disassemble, selectors"] --> B["Step 2: Token RE - prove ERC20 from selectors"]
+    B --> C["Step 3: Proxy RE - DELEGATECALL to implementation"]
+    C --> D["Step 4: Protocol RE - fingerprint Aave, Kuru, Uniswap"]
+    D --> E["Step 5: Forensics - TxGraph counterparties + hops"]
+    E --> F["Step 6: Standards - defend every failed control"]
+    F --> G["Step 7: Experiments - one failure removed, one success kept"]
+    G --> H["Step 8: Matrix - work only from successful cells"]
+    H --> I["Step 9: Risk - model the Nov 24 2026 unlock"]
+    I --> J["Step 10: Ship - testnet plan only after matrix green"]
+    
+docs/MERGE_MAP.md
+flowchart TD
+    A["Merge Map document"] --> B["First merge: 7 GitHub repos to native modules"]
+    A --> C["Second merge: 10 Docker Hub images to modules + registry"]
+    A --> D["Agent planning: Gemini Pro Thinking origin, Google-FlowX"]
+    B --> E["Reader can trace every module back to its source repo or image"]
+    C --> E
+    D --> E
+    
+docs/MONAD_ARCHITECTURE.md
+flowchart TD
+    A["Monad facts sheet"] --> B["Chain: L1, mainnet Nov 24 2025, full EVM compat"]
+    A --> C["Performance: 10,000 TPS, 0.4s blocks, 0.8s finality"]
+    A --> D["Core: parallel execution, pipelining, MonadBFT, RaptorCast, MonadDb"]
+    D --> E["RE consequence: ordering + MEV assumptions change vs sequential Ethereum"]
+    A --> F["Snapshot: 989M tx, 9M+ wallets, 143+ apps, TVL 974.7M / 1.03B"]
+    A --> G["Token: MON 100B supply - watch Nov 24 2026 cliff unlock 16.6B"]
+    A --> H["Top protocols: Aave, Kuru, Uniswap, PancakeSwap, Balancer, Curve"]
+    
+labs/README.md
+flowchart TD
+    A["Labs: educational, local-only samples"] --> B["Sample dispatcher bytecode embedded in tests"]
+    B --> C["Disassemble with analyze"]
+    A --> D["Build your own: compile small Solidity for Monad testnet"]
+    D --> E["Paste runtime bytecode into analyze"]
+    E --> F["Full matrix: selectors, ERC20 check, standards, risk flags, fingerprint"]
+    A --> G["Scope rule: only wallets + contracts you own or may study"]
+    
+README.md
+flowchart TD
+    A["README.md: project front door"] --> B["Cover image + badges: CI + Docker Publish"]
+    B --> C["Badge wall: stack, Web3, platform, low-level, DevOps, cloud"]
+    C --> D["The merge: 7 repos explained"]
+    D --> E["Second merge: 10 Docker images explained"]
+    E --> F["The 58 Agents: architecture + mermaid diagrams"]
+    F --> G["Widest-level roster + full duty roster: all 17 pipelines"]
+    G --> H["How a payload flows: intake, widest level, convergence, exit"]
+    H --> I["Structure tree + install + run instructions"]
+    
+LICENSE
+flowchart TD
+    A["LICENSE: MIT"] --> B["Anyone may use, copy, modify, distribute"]
+    B --> C["Condition: keep the copyright + license notice"]
+    C --> D["Software as-is, no warranty"]
+    
+IMG_5224.png
+flowchart TD
+    A["IMG_5224.png: cover artwork, 3.5 MB"] --> B["Referenced at the top of README.md"]
+    B --> C["First visual a visitor sees on the repo"]
+    C --> D["Also used as the X post 1 attachment in the launch set"]
+    
 ## The 58 - widest-level roster (the payload moment)
 
 The exact agents working simultaneously when every pipeline hits its widest level - the moment the number 58 describes. Everything else in each pipeline runs before or after this level, in dependency order.

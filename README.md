@@ -13,8 +13,6 @@
 ![Docker Hub](https://img.shields.io/docker/pulls/credkellar/mon-ultra-matrix?logo=docker&label=Docker%20Hub%20pulls)
 ![License](https://img.shields.io/badge/LICENSE-MIT-yellow?style=flat-square)
 
-Architecture: one pure-Python package (`src/mon_ultra_matrix/`, 30 modules) - EVM/ABI reverse engineering, Monad contract audit, tx forensics, RPC inspection, ISO/IEC standards audit, a Gemini Pro Thinking (Extended) agent planner, and a matrix test runner - shipped as a single Docker image with a Docker Compose fleet stack for the 10 merged credkellar images.
-
 ## 💻 Core Programming Languages & Core Systems
 
 ![Python](https://img.shields.io/badge/PYTHON-3.12-3776AB?style=flat-square&logo=python&logoColor=white)
@@ -74,6 +72,9 @@ Architecture: one pure-Python package (`src/mon_ultra_matrix/`, 30 modules) - EV
 ![DefiLlama](https://img.shields.io/badge/DATA-DEFILLAMA-23B466?style=flat-square)
 ![CoinGecko](https://img.shields.io/badge/DATA-COINGECKO-8DC63F?style=flat-square&logo=coingecko&logoColor=white)
 ![Monad RPC](https://img.shields.io/badge/RPC-PUBLIC_ENDPOINTS-836EF9?style=flat-square)
+-----
+
+(Architecture: one pure-Python package (`src/mon_ultra_matrix/`, 30 modules) - EVM/ABI reverse engineering, Monad contract audit, tx forensics, RPC inspection, ISO/IEC standards audit, a Gemini Pro Thinking (Extended) agent planner, and a matrix test runner - shipped as a single Docker image with a Docker Compose fleet stack for the 10 merged credkellar images.)
 
 > Mon-Ultra-Matrix: Monad reverse-engineering lab merging 7 GitHub repos and 10 Docker Hub images into unified system. EVM bytecode and ABI RE, contract audit, tx forensics, RPC inspection and ISO/IEC standards checks, run by a Gemini Pro Thinking Extended planner sizing 58 zero-latency agents - per repo and unified. Successes only, failures removed.
 

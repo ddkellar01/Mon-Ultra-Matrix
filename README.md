@@ -479,6 +479,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 2. **Widest level (the 58)** - the heavy parallel analysis: scans, traces, renders, decompositions. This level sizes the pool.
 3. **Convergence** - validators, diffing and report builders merge parallel output; unverified or failed work is removed here, never recorded.
 4. **Exit** - publishers and the deployer ship successes only; deploys are testnet-first and a FAILED project never deploys.
+------
 
 🟣 Mon-Ultra-Matrix/
 ├── ⚙️ .github/

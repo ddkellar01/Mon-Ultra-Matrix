@@ -1,3 +1,5 @@
+![Mon-Ultra-Matrix cover](cover.png)
+
 # Mon-Ultra-Matrix
 
 [![Profile views](https://komarev.com/ghpvc/?username=ddkellar01&label=Profile%20views&color=836EF9&style=flat-square)](https://github.com/ddkellar01)

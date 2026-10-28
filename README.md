@@ -129,6 +129,7 @@ Mon-Ultra-Matrix — Mermaid flowcharts for EVERY file (48 of 48)
 1/48 — .github/workflows/ci.yml
 
 flowchart TD
+
     A["Trigger: push or pull_request"] --> B["Job test on ubuntu-latest"]
     B --> C["actions/checkout v4"]
     C --> D["setup-python v5: Python 3.12"]
@@ -144,6 +145,7 @@ flowchart TD
 2/48 — .github/workflows/docker-publish.yml
 
 flowchart TD
+
     A{"Trigger?"} -->|push to main| B["Job publish on ubuntu-latest"]
     A -->|push tag v star| B
     A -->|workflow_dispatch manual| B
@@ -157,12 +159,14 @@ flowchart TD
 3/48 — src/mon_ultra_matrix/__init__.py
 
 flowchart TD
+
     A["Package imported"] --> B["Set __version__ = 0.1.0"]
     B --> C["Export __all__: version only"]
 
 4/48 - src/mon_ultra_matrix/__main__.py
 
 flowchart TD
+
     A["python -m mon_ultra_matrix"] --> B["Import main from cli.py"]
     B --> C["Run main with argv"]
     C --> D["sys.exit with main return code"]
@@ -170,6 +174,7 @@ flowchart TD
 5/48 - src/mon_ultra_matrix/abi_re.py
 
 flowchart TD
+
     A["Input: 4-byte selectors"] --> B{"identify: selector in KNOWN DB?"}
     B -->|yes| C["Return signature, e.g. transfer address uint256"]
     B -->|no| D["Return unknown"]
@@ -181,6 +186,7 @@ flowchart TD
 6/48 - src/mon_ultra_matrix/bounty.py
 
 flowchart TD
+
     A["Target + allowlist"] --> B{"in_scope: exact, subdomain, or prefix match?"}
     B --> C{"triage: in scope?"}
     C -->|no| D["Drop - out of scope, score 0.0"]
@@ -190,6 +196,7 @@ flowchart TD
 7/48 — src/mon_ultra_matrix/cli.py
 
 flowchart TD
+
     A["main: parse subcommand"] --> B{"Which command?"}
     B -->|stats| C["monad_stats summary + protocols + tokenomics JSON"]
     B -->|images| D["docker_images registry + total pulls JSON"]
@@ -217,6 +224,7 @@ flowchart TD
 8/48 — src/mon_ultra_matrix/compressor.py
 
 flowchart TD
+
     A["Input: bytes"] --> B["chunk: split into 4096-byte chunks"]
     B --> C["dedup_chunks: SHA-256 each chunk"]
     C --> D{"Hash seen before?"}
@@ -230,6 +238,7 @@ flowchart TD
 9/48 — src/mon_ultra_matrix/contract_audit.py
 
 flowchart TD
+
     A["Input: contract bytecode hex"] --> B["evm_re disassemble to opcode list"]
     B --> C{"CALL before a later SSTORE?"}
     C -->|yes| D["Finding: reentrancy lead"]
@@ -248,6 +257,7 @@ flowchart TD
 10/48 - src/mon_ultra_matrix/deconstruction.py
 
 flowchart TD
+
     A["Input: bytecode hex"] --> B["evm_re disassemble"]
     B --> C["Strip dead opcodes: STOP, INVALID, REVERT"]
     C --> D["Core logic set + fluff ratio"]
@@ -259,6 +269,7 @@ flowchart TD
 11/48 — src/mon_ultra_matrix/deployer.py
 
 flowchart TD
+
     A["Input: registry entry"] --> B{"status == SUCCESS?"}
     B -->|no| C["deploy: False - FAILED projects are removed, never deployed"]
     B -->|yes| D["deploy: True on monad-testnet"]
@@ -270,6 +281,7 @@ flowchart TD
 12/48 - src/mon_ultra_matrix/docker_images.py
 
 flowchart TD
+
     A["IMAGES registry: 10 credkellar images"] --> B["Each entry: hub name, pulls snapshot, role, native module"]
     B --> C["total_pulls: sum snapshots = 6,699"]
     B --> D["pull_commands: docker pull line per image"]
@@ -279,6 +291,7 @@ flowchart TD
 13/48 — src/mon_ultra_matrix/evm_re.py
 
 flowchart TD
+
     A["Input: bytecode hex"] --> B["clean_hex: strip 0x, lowercase"]
     B --> C["disassemble: walk bytes with program counter"]
     C --> D{"Opcode is PUSH1 to PUSH32?"}
@@ -295,6 +308,7 @@ flowchart TD
 14/48 — src/mon_ultra_matrix/experiment.py
 
 flowchart TD
+
     A["pipeline: run experiment in sandbox"] --> B{"Experiment status?"}
     B -->|SUCCESS| C{"test_fn provided?"}
     C -->|yes| D["Run test in sandbox"]
@@ -314,6 +328,7 @@ flowchart TD
 15/48 — src/mon_ultra_matrix/forensics.py
 
 flowchart TD
+
     A["Input: analysis dict from evm_re"] --> B{"has_delegatecall?"}
     B -->|yes| C["Flag: proxy / upgrade risk"]
     A --> D{"has_selfdestruct?"}
@@ -332,6 +347,7 @@ flowchart TD
 16/48 - src/mon_ultra_matrix/gemini_planner.py
 
 flowchart TD
+
     A["REPO_GRAPHS: 17 task graphs, subtask + ms + dependencies"] --> B["levels_of: topological sort into levels"]
     B --> C{"Any subtask ready? deps all in earlier levels"}
     C -->|no| D["Raise: dependency cycle"]
@@ -347,6 +363,7 @@ flowchart TD
 17/48 — src/mon_ultra_matrix/globe.py
 
 flowchart TD
+
     A["Input: protocol names + tx keys"] --> B["point_for: SHA-256 of key"]
     B --> C["Derive pseudo lat -85..85 and lng -175..175 from hash bits"]
     C --> D["backend_payload: points list"]
@@ -357,6 +374,7 @@ flowchart TD
 18/48 — src/mon_ultra_matrix/honeypot.py
 
 flowchart TD
+
     A["Input: SSH honeypot log text"] --> B["Regex per line: IP, user, password"]
     B --> C{"Line matches?"}
     C -->|yes| D["Count attempt: IP, user, password counters"]
@@ -368,6 +386,7 @@ flowchart TD
 19/48 - src/mon_ultra_matrix/learner.py
 
 flowchart TD
+
     A["SML - KNN"] --> A1["fit: store samples"]
     A1 --> A2["predict: k nearest by distance, majority vote"]
     B["NNL - tiny MLP from scratch"] --> B1["Init weights, seed 7"]
@@ -384,6 +403,7 @@ flowchart TD
 20/48 - src/mon_ultra_matrix/malware_research.py
 
 flowchart TD
+
     A["Input: research text"] --> B["extract_iocs: regex IPs, domains, SHA-256s, URLs"]
     B --> C["Dedup + sort each IOC class"]
     A2["Input: sample bytes"] --> B2["catalog_sample: name, family, SHA-256, size"]
@@ -394,6 +414,7 @@ flowchart TD
 21/48 - src/mon_ultra_matrix/malware_sandbox.py
 
 flowchart TD
+
     A["Input: sample bytes - NEVER executed"] --> B["SHA-256 hash + size"]
     B --> C["Entropy via evm_re entropy on hex"]
     C --> D{"Entropy over 7.2?"}
@@ -408,6 +429,7 @@ flowchart TD
 22/48 — src/mon_ultra_matrix/matrix_runner.py
 
 flowchart TD
+
     A["Inputs: targets x checks dict"] --> B["For each target, for each check"]
     B --> C["attempted += 1, run check"]
     C --> D{"Check raised?"}
@@ -422,6 +444,7 @@ flowchart TD
 23/48 - src/mon_ultra_matrix/monad_client.py
 
 flowchart TD
+
     A["MonadClient: rpc URL + timeout"] --> B["call: build JSON-RPC 2.0 body"]
     B --> C["POST via urllib"]
     C --> D{"Request succeeded?"}
@@ -435,6 +458,7 @@ flowchart TD
 24/48 — src/mon_ultra_matrix/monad_stats.py
 
 flowchart TD
+
     A["Static snapshot data from 2026-10-27 research video"] --> B["MONAD: chain facts - 10,000 TPS, 0.4s blocks, 0.8s finality, MonadBFT"]
     A --> C["SNAPSHOT: 989M tx, 9M+ wallets, 143+ apps, TVL figures"]
     A --> D["TOKENOMICS: 100B supply, price range, 16.6B cliff unlock 2026-11-24"]
@@ -447,6 +471,7 @@ flowchart TD
 25/48 — src/mon_ultra_matrix/protocol_re.py
 
 flowchart TD
+
     A["Input: function names from a contract"] --> B["Join + lowercase names"]
     B --> C["For each protocol in PROTOCOLS DB"]
     C --> D{"Any marker in names? Aave deposit/borrow, Kuru placeOrder, Uniswap unlock/swap, Curve exchange..."}
@@ -458,6 +483,7 @@ flowchart TD
 26/48 — src/mon_ultra_matrix/report.py
 
 flowchart TD
+
     A["Inputs: registry summary, optional matrix, optional contract"] --> B["Header + monad_stats summary line"]
     B --> C["Projects kept: N successful - all failures removed"]
     C --> D{"Matrix given?"}
@@ -472,6 +498,7 @@ flowchart TD
 27/48 — src/mon_ultra_matrix/rpc_inspector.py
 
 flowchart TD
+
     A["inspect_endpoint: MonadClient for RPC URL"] --> B["chain_id + block_number calls"]
     B --> C["Reachable = chain_id is not None"]
     A2["inspect_all: run per endpoint"] --> B2["Default RPCs: rpc.monad.xyz, rpc1, monadinfra"]
@@ -495,6 +522,7 @@ flowchart TD
 29/48 — src/mon_ultra_matrix/scout.py
 
 flowchart TD
+
     A["Input: topics"] --> B["SOURCES: github, defillama, coingecko, monad-explorer"]
     B --> C["Per topic: search, rank by stars / activity / TVL"]
     C --> D["Queue hits for sandbox experiment"]
@@ -503,6 +531,7 @@ flowchart TD
 30/48 — src/mon_ultra_matrix/standards.py
 
 flowchart TD
+
     A["Input: contract analysis dict"] --> B["audit: run 4 ISO/IEC-flavoured controls"]
     B --> C["access-control: no uncontrolled SELFDESTRUCT"]
     B --> D["upgrade-transparency: DELEGATECALL only behind visible dispatcher"]
@@ -517,6 +546,7 @@ flowchart TD
 31/48 — src/mon_ultra_matrix/tx_tracer.py
 
 flowchart TD
+
     A["TxGraph: add edges from, to, value, hash"] --> B["counterparties: all addresses touching an address"]
     A --> C["total_out / total_in: sum values per direction"]
     A --> D["hops: breadth-first walk, default max 3 hops"]
@@ -530,6 +560,7 @@ flowchart TD
 32/48 — src/mon_ultra_matrix/vuln_scan.py
 
 flowchart TD
+
     A["scan_source: source code text"] --> B["Regex SOURCE_PATTERNS"]
     B --> C["sql-injection, hardcoded-secret, eval-exec, weak-hash, debug-enabled"]
     C --> D["Hit: pattern name + remediation fix"]
@@ -547,6 +578,7 @@ flowchart TD
 33/48 — scripts/smoke.py
 
 flowchart TD
+
     A["smoke.py: add src to path"] --> B["Print monad summary"]
     B --> C["Analyze sample bytecode, print result"]
     C --> D["Temp registry: pipeline smoke-ok + smoke-fail 1/0"]
@@ -563,6 +595,7 @@ flowchart TD
 34/48 — tests/test_mon_ultra_matrix.py
 
 flowchart TD
+
     A["pytest: 29 tests"] --> B["Core: stats, disassemble + selectors, abi, forensics + standards, txgraph, protocol fingerprint"]
     A --> C["Rules: registry keeps success / removes failure, purge on disk, deployer gate, matrix removes failed cells, sandbox"]
     A --> D["Modules: learners, entropy range, docker registry, deconstruction, vuln scan, bounty scope, contract audit"]
@@ -579,6 +612,7 @@ flowchart TD
 35/48 — vuln_scan.py (repo root — identical to 32/48)
 
 flowchart TD
+
     A["scan_source: source code text"] --> B["Regex SOURCE_PATTERNS"]
     B --> C["sql-injection, hardcoded-secret, eval-exec, weak-hash, debug-enabled"]
     C --> D["Hit: pattern name + remediation fix"]
@@ -607,6 +641,7 @@ flowchart TD
 37/48 — docker-compose.yml
 
 flowchart TD
+
     A["docker compose up"] --> B["Service: mon-ultra-matrix"]
     B --> C["build: local Dockerfile"]
     C --> D["command: stats"]
@@ -616,6 +651,7 @@ flowchart TD
 38/48 — docker-compose.ultra.yml
 
 flowchart TD
+
     A["FILE REALITY CHECK"] --> B["Despite the name, this file is NOT a compose file"]
     B --> C["Content: the 58 Agents markdown table"]
     C --> D["Per-repo agent widths: 5, 5, 4, 4, 4, 4, 4, then 3s and 2s"]
@@ -636,6 +672,7 @@ flowchart TD
 40/48 — requirements.txt
 
 flowchart TD
+
     A["requirements.txt"] --> B["Zero runtime dependencies - pure stdlib"]
     B --> C["Only optional input: GEMINI_API_KEY env var"]
     C --> D["Set: learner + planner can call Gemini"]
@@ -654,6 +691,7 @@ flowchart TD
 42/48 — docs/CURRICULUM.md
 
 flowchart TD
+
     A["Step 1: EVM basics - disassemble, selectors"] --> B["Step 2: Token RE - prove ERC20 from selectors"]
     B --> C["Step 3: Proxy RE - DELEGATECALL to implementation"]
     C --> D["Step 4: Protocol RE - fingerprint Aave, Kuru, Uniswap"]
@@ -667,6 +705,7 @@ flowchart TD
 43/48 — docs/MERGE_MAP.md
 
 flowchart TD
+
     A["Merge Map document"] --> B["First merge: 7 GitHub repos to native modules"]
     A --> C["Second merge: 10 Docker Hub images to modules + registry"]
     A --> D["Agent planning: Gemini Pro Thinking origin, Google-FlowX"]
@@ -688,6 +727,7 @@ flowchart TD
 45/48 — labs/README.md
 
 flowchart TD
+
     A["Labs: educational, local-only samples"] --> B["Sample dispatcher bytecode embedded in tests"]
     B --> C["Disassemble with analyze"]
     A --> D["Build your own: compile small Solidity for Monad testnet"]
@@ -698,6 +738,7 @@ flowchart TD
 46/48 — README.md
 
 flowchart TD
+
     A["README.md: project front door"] --> B["Cover image + badges: CI + Docker Publish"]
     B --> C["Badge wall: stack, Web3, platform, low-level, DevOps, cloud"]
     C --> D["The merge: 7 repos explained"]
@@ -710,6 +751,7 @@ flowchart TD
 47/48 — LICENSE
 
 flowchart TD
+
     A["LICENSE: MIT"] --> B["Anyone may use, copy, but can't modify, distribute"]
     B --> C["Condition: keep the copyright + license notice"]
     C --> D["Software as-is, warranty"]

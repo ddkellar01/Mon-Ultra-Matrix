@@ -202,26 +202,26 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **20. `inspect-network`** (400 ms) - Inspect network behaviour. Analysis: Endpoints, websockets, data flows. Payload: target -> network findings.
 - **21. `inspect-mobile`** (400 ms) - Inspect the mobile surface. Analysis: Deep links + app endpoints. Payload: target -> mobile findings.
 
-### quantum-ecosystem - 3 agents (level 1)
+### Quantum-Ecosystem - 3 agents (level 1)
 
 - **22. `monad-contract-audit`** (600 ms) - Audit Monad contracts. Analysis: Full Monad-Vul-X scan set + parallel-execution notes. Payload: bytecode -> audit findings.
 - **23. `sandbox-detonation`** (600 ms) - Sandbox detonation (planned, isolated). Analysis: Behaviour observation plan - never on host. Payload: candidate -> behaviour notes.
 - **24. `fund-balancer`** (400 ms) - Balance fund flows (analysis only). Analysis: Flow in/out reconciliation. Payload: tx data -> balance sheet.
 
-### deconstruction - 3 agents (level 1)
+### Deconstruction - 3 agents (level 1)
 
 - **25. `decompose-frontend`** (400 ms) - Decompose the frontend. Analysis: Component tree + framework detection. Payload: inventory -> frontend map.
 - **26. `decompose-backend`** (400 ms) - Decompose the backend. Analysis: Services, APIs, data stores. Payload: inventory -> backend map.
 - **27. `decompose-logic`** (400 ms) - Decompose the core logic. Analysis: Business rules + invariants. Payload: inventory -> logic map.
 
-### vulnerabilitiesx - 4 agents (level 1)
+### VulnerabilitiesX - 4 agents (level 1)
 
 - **28. `scan-vulnerable-web`** (400 ms) - Scan the vulnerable web variant. Analysis: OWASP pattern hits on the unsafe build. Payload: web target -> vuln findings.
 - **29. `scan-vulnerable-api`** (400 ms) - Scan the vulnerable API variant. Analysis: Auth/input pattern hits. Payload: API target -> vuln findings.
 - **30. `scan-bot-exploits`** (400 ms) - Scan bot-exploit patterns. Analysis: Automation abuse patterns. Payload: targets -> exploit findings.
 - **31. `scan-secure-variants`** (400 ms) - Scan the secure variants. Analysis: Confirm the fixed builds resist the same patterns. Payload: secure targets -> resistance report.
 
-### bug-bounty-xterminator - 5 agents (level 1)
+### Bug-Bounty-Xterminator - 5 agents (level 1)
 
 - **32. `recon-web`** (500 ms) - Web recon. Analysis: Endpoints, JS, headers, tech stack. Payload: target -> web map.
 - **33. `recon-api`** (500 ms) - API recon. Analysis: Route + schema discovery. Payload: target -> API map.
@@ -229,7 +229,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **35. `recon-binary`** (500 ms) - Binary recon. Analysis: Triage: type, entropy, strings, imports. Payload: binary -> triage sheet.
 - **36. `recon-infra`** (500 ms) - Infrastructure recon. Analysis: DNS, certs, exposed services (in scope only). Payload: domain -> infra map.
 
-### monad-vul-x - 5 agents (level 1)
+### Monad-Vul-X - 5 agents (level 1)
 
 - **37. `scan-reentrancy`** (400 ms) - Scan reentrancy. Analysis: CALL-before-state-update pattern hunt. Payload: bytecode -> reentrancy leads.
 - **38. `scan-access-control`** (400 ms) - Scan access control. Analysis: owner/onlyOwner + tx.origin patterns. Payload: bytecode -> access leads.
@@ -237,37 +237,37 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **40. `scan-unchecked-calls`** (400 ms) - Scan unchecked calls. Analysis: Low-level CALL return-value handling. Payload: bytecode -> unchecked-call leads.
 - **41. `ml-risk-score`** (400 ms) - ML risk score. Analysis: kNN/MLP scoring over scan features. Payload: all leads -> risk score.
 
-### malware-sandbox-suite - 2 agents (level 1)
+### Malware-Sandbox-Suite - 2 agents (level 1)
 
 - **42. `static-triage`** (400 ms) - Static triage. Analysis: Format, entropy, strings, IOC pre-scan. Payload: sample -> triage sheet.
 - **43. `hash-and-ioc`** (300 ms) - Hash and IOC extraction. Analysis: SHA-256 + domains/IPs/wallets regex sweep. Payload: sample -> IOC list.
 
-### app-data-compressor - 4 agents (level 2)
+### App-Data-Compressor - 4 agents (level 2)
 
 - **44. `compress-shard-1`** (400 ms) - Compress shard 1. Analysis: zlib over chunk subset 1. Payload: chunks -> shard 1.
 - **45. `compress-shard-2`** (400 ms) - Compress shard 2. Analysis: zlib over chunk subset 2. Payload: chunks -> shard 2.
 - **46. `compress-shard-3`** (400 ms) - Compress shard 3. Analysis: zlib over chunk subset 3. Payload: chunks -> shard 3.
 - **47. `compress-shard-4`** (400 ms) - Compress shard 4. Analysis: zlib over chunk subset 4. Payload: chunks -> shard 4.
 
-### honeyroot-x - 3 agents (level 1)
+### Honeyroot-x - 3 agents (level 1)
 
 - **48. `listen-ssh`** (600 ms) - Listen on SSH bait. Analysis: Auth-attempt logging. Payload: bait -> ssh attempt log.
 - **49. `listen-services`** (600 ms) - Listen on service bait. Analysis: Probe/banner-grab logging. Payload: bait -> service probe log.
 - **50. `collect-attackers`** (600 ms) - Collect attacker metadata. Analysis: Source IPs, ASNs, cadence. Payload: logs -> attacker set.
 
-### malware-research-hub - 3 agents (level 1)
+### Malware-Research-Hub - 3 agents (level 1)
 
 - **51. `catalog-families`** (500 ms) - Catalogue malware families. Analysis: Family clustering by traits. Payload: registry -> family catalogue.
 - **52. `extract-iocs`** (400 ms) - Extract IOCs. Analysis: Hashes, domains, IPs, wallets. Payload: registry -> IOC set.
 - **53. `classify-behaviour`** (500 ms) - Classify behaviour. Analysis: Behaviour tags (stealer, loader, RAT...). Payload: registry -> behaviour map.
 
-### globe-visualizer-frontend - 3 agents (level 1)
+### Globe-Visualizer-Frontend - 3 agents (level 1)
 
 - **54. `render-points`** (400 ms) - Render globe points. Analysis: Lat/lon markers. Payload: dataset -> points layer.
 - **55. `render-arcs`** (400 ms) - Render globe arcs. Analysis: Origin-destination arcs. Payload: dataset -> arcs layer.
 - **56. `render-ui`** (400 ms) - Render globe UI. Analysis: Controls, legend, stats. Payload: dataset -> UI layer.
 
-### globe-visualizer-backend - 2 agents (level 1)
+### Globe-Visualizer-Backend - 2 agents (level 1)
 
 - **57. `build-points`** (400 ms) - Build points payload. Analysis: Aggregate events into map points. Payload: activity -> points JSON.
 - **58. `build-arcs`** (400 ms) - Build arcs payload. Analysis: Pair flows into arcs. Payload: activity -> arcs JSON.
@@ -346,7 +346,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 1 - `inspect-mobile`** (400 ms - depends on: load-target) - Inspect the mobile surface. Analysis: Deep links + app endpoints. Payload: target -> mobile findings.
 - **Level 2 - `build-report`** (300 ms - depends on: inspect-rpc, inspect-dom, inspect-network, inspect-mobile) - Build the inspection report. Analysis: Merge surface findings, severity-ranked. Payload: all findings -> report.
 
-### quantum-ecosystem
+### Quantum-Ecosystem
 
 3 agents - 6 subtasks - 3 levels - critical path 1300 ms - sequential 2600 ms - speedup 2.0x
 
@@ -357,7 +357,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 2 - `encrypted-backup`** (300 ms - depends on: monad-contract-audit, sandbox-detonation) - Encrypted backup of results. Analysis: Checksum + encrypt audit artefacts. Payload: findings -> encrypted bundle.
 - **Level 2 - `deploy`** (300 ms - depends on: monad-contract-audit, fund-balancer) - Produce the deploy plan. Analysis: Testnet-first gating; FAILED never deploys. Payload: passing candidate -> deploy plan.
 
-### deconstruction
+### Deconstruction
 
 3 agents - 6 subtasks - 4 levels - critical path 1300 ms - sequential 2100 ms - speedup 1.62x
 
@@ -368,7 +368,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 2 - `strip-and-optimise`** (400 ms - depends on: decompose-frontend, decompose-backend, decompose-logic) - Strip and optimise. Analysis: Dead-code removal, lean rebuild plan. Payload: 3 maps -> optimised blueprint.
 - **Level 3 - `solve-core`** (300 ms - depends on: strip-and-optimise) - Solve the core problem. Analysis: Rebuild the irreducible core from the blueprint. Payload: blueprint -> core solution.
 
-### vulnerabilitiesx
+### VulnerabilitiesX
 
 4 agents - 6 subtasks - 3 levels - critical path 900 ms - sequential 2100 ms - speedup 2.33x
 
@@ -379,7 +379,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 1 - `scan-secure-variants`** (400 ms - depends on: load-lab) - Scan the secure variants. Analysis: Confirm the fixed builds resist the same patterns. Payload: secure targets -> resistance report.
 - **Level 2 - `diff-and-teach`** (300 ms - depends on: scan-vulnerable-web, scan-vulnerable-api, scan-bot-exploits, scan-secure-variants) - Diff vulnerable vs secure and teach. Analysis: Side-by-side delta -> lesson. Payload: vuln+secure findings -> teaching diff.
 
-### bug-bounty-xterminator
+### Bug-Bounty-Xterminator
 
 5 agents - 8 subtasks - 4 levels - critical path 1500 ms - sequential 3500 ms - speedup 2.33x
 
@@ -392,7 +392,7 @@ The exact agents working simultaneously when every pipeline hits its widest leve
 - **Level 2 - `validate-findings`** (500 ms - depends on: recon-web, recon-api, recon-mobile, recon-binary, recon-infra) - Validate recon findings. Analysis: Reproduce-or-drop: unverified findings removed. Payload: 5 recon maps -> validated findings.
 - **Level 3 - `build-report`** (300 ms - depends on: validate-findings) - Build the inspection report. Analysis: Merge surface findings, severity-ranked. Payload: all findings -> report.
 
-### monad-vul-x
+### Monad-Vul-X
 
 5 agents - 7 subtasks - 3 levels - critical path 900 ms - sequential 2500 ms - speedup 2.78x
 

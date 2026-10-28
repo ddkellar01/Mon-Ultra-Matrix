@@ -364,6 +364,85 @@ flowchart TD
     D --> F["Top 5 attackers, users, passwords"]
     E --> F
     F --> G["bait_note: root bait - every attempt hostile, log never allow"]
+
+19/48 - src/mon_ultra_matrix/learner.py
+
+flowchart TD
+    A["SML - KNN"] --> A1["fit: store samples"]
+    A1 --> A2["predict: k nearest by distance, majority vote"]
+    B["NNL - tiny MLP from scratch"] --> B1["Init weights, seed 7"]
+    B1 --> B2["forward: sigmoid hidden layer, sigmoid output"]
+    B2 --> B3["train: backprop epochs, lr 0.3"]
+    B3 --> B4["predict: forward pass score"]
+    C["LLM reasoner - reason query"] --> C1["Match query words against offline KB"]
+    C1 --> C2{"GEMINI_API_KEY set?"}
+    C2 -->|yes| C3["Mode: gemini-configured, KB answers shown"]
+    C2 -->|no| C4["Mode: offline KB answers"]
+    C1 --> C5{"No KB hit?"}
+    C5 -->|yes| C6["Queue as a new experiment"]
+
+20/48 - src/mon_ultra_matrix/malware_research.py
+
+flowchart TD
+    A["Input: research text"] --> B["extract_iocs: regex IPs, domains, SHA-256s, URLs"]
+    B --> C["Dedup + sort each IOC class"]
+    A2["Input: sample bytes"] --> B2["catalog_sample: name, family, SHA-256, size"]
+    A3["Input: indicators"] --> B3{"guess_family: indicator names a known family?"}
+    B3 -->|yes| C3["Return family: ransomware, trojan, worm, spyware, rootkit, loader, stealer, rat"]
+    B3 -->|no| D3["Return unknown"]
+
+21/48 - src/mon_ultra_matrix/malware_sandbox.py
+
+flowchart TD
+    A["Input: sample bytes - NEVER executed"] --> B["SHA-256 hash + size"]
+    B --> C["Entropy via evm_re entropy on hex"]
+    C --> D{"Entropy over 7.2?"}
+    D -->|yes| E["packed_suspect: True"]
+    D -->|no| F["packed_suspect: False"]
+    A --> G["extract_strings: printable runs, min length 4, first 50"]
+    G --> H["indicators: match SUSPICIOUS APIs - VirtualAlloc, WriteProcessMemory, CreateRemoteThread, socket, powershell"]
+    E --> I["Return static triage report"]
+    F --> I
+    H --> I
+
+22/48 — src/mon_ultra_matrix/matrix_runner.py
+
+flowchart TD
+    A["Inputs: targets x checks dict"] --> B["For each target, for each check"]
+    B --> C["attempted += 1, run check"]
+    C --> D{"Check raised?"}
+    D -->|yes| E["Failure removed silently - never kept"]
+    D -->|no| F["Keep cell: SUCCESS + detail, first 200 chars"]
+    E --> G["Next cell"]
+    F --> G
+    G --> H{"More cells?"}
+    H -->|yes| B
+    H -->|no| I["Return: cells, attempted, successful, failed 0, removed count"]
+
+23/48 - src/mon_ultra_matrix/monad_client.py
+
+flowchart TD
+    A["MonadClient: rpc URL + timeout"] --> B["call: build JSON-RPC 2.0 body"]
+    B --> C["POST via urllib"]
+    C --> D{"Request succeeded?"}
+    D -->|yes| E["Return result field"]
+    D -->|error| F["Return None - never raises"]
+    E --> G["block_number: eth_blockNumber to int"]
+    E --> H["get_code: eth_getCode latest"]
+    E --> I["get_balance: eth_getBalance to int"]
+    E --> J["chain_id: eth_chainId to int"]
+
+24/48 — src/mon_ultra_matrix/monad_stats.py
+
+flowchart TD
+    A["Static snapshot data from 2026-10-27 research video"] --> B["MONAD: chain facts - 10,000 TPS, 0.4s blocks, 0.8s finality, MonadBFT"]
+    A --> C["SNAPSHOT: 989M tx, 9M+ wallets, 143+ apps, TVL figures"]
+    A --> D["TOKENOMICS: 100B supply, price range, 16.6B cliff unlock 2026-11-24"]
+    A --> E["TOP_PROTOCOLS: Aave, Kuru, Uniswap, PancakeSwap, Balancer, Curve"]
+    B --> F["summary: one-line network summary string"]
+    C --> F
+    D --> F
+    E --> F
     
 ## The 58 - widest-level roster (the payload moment)
 

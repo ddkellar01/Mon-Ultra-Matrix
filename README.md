@@ -1,6 +1,7 @@
 # Mon-Ultra-Matrix
 
-[![Repo views](https://hits.sh/github.com/ddkellar01/Mon-Ultra-Matrix.svg?style=flat-square)](https://hits.sh/github.com/ddkellar01/Mon-Ultra-Matrix/)
+[![Profile views](https://komarev.com/ghpvc/?username=ddkellar01&label=Profile%20views&color=836EF9&style=flat-square)](https://github.com/ddkellar01)
+[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=ddkellar01.Mon-Ultra-Matrix)](https://github.com/ddkellar01/Mon-Ultra-Matrix)
 
 ## 🧰 Tech Stack & Architecture Badges
 

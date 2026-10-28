@@ -1,4 +1,4 @@
-![Mon-Ultra-Matrix cover](cover.png)
+![Mon-Ultra-Matrix cover](IMG_5224.png)
 
 # Mon-Ultra-Matrix
 

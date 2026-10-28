@@ -159,6 +159,73 @@ flowchart TD
 flowchart TD
     A["Package imported"] --> B["Set __version__ = 0.1.0"]
     B --> C["Export __all__: version only"]
+
+4/48 - src/mon_ultra_matrix/__main__.py
+
+flowchart TD
+    A["python -m mon_ultra_matrix"] --> B["Import main from cli.py"]
+    B --> C["Run main with argv"]
+    C --> D["sys.exit with main return code"]
+
+5/48 - src/mon_ultra_matrix/abi_re.py
+
+flowchart TD
+    A["Input: 4-byte selectors"] --> B{"identify: selector in KNOWN DB?"}
+    B -->|yes| C["Return signature, e.g. transfer address uint256"]
+    B -->|no| D["Return unknown"]
+    A --> E["identify_all: map every selector"]
+    A --> F{"is_erc20: transfer + transferFrom + balanceOf + totalSupply all present?"}
+    F -->|yes| G["True: ERC-20 interface"]
+    F -->|no| H["False"]
+
+6/48 - src/mon_ultra_matrix/bounty.py
+
+flowchart TD
+    A["Target + allowlist"] --> B{"in_scope: exact, subdomain, or prefix match?"}
+    B --> C{"triage: in scope?"}
+    C -->|no| D["Drop - out of scope, score 0.0"]
+    C -->|yes| E["Score by severity: critical 9.0 to info 0.5"]
+    E --> F["report_scaffold: title, target, steps, impact, remediation"]
+
+7/48 — src/mon_ultra_matrix/cli.py
+
+flowchart TD
+    A["main: parse subcommand"] --> B{"Which command?"}
+    B -->|stats| C["monad_stats summary + protocols + tokenomics JSON"]
+    B -->|images| D["docker_images registry + total pulls JSON"]
+    B -->|agents| E{"--repo given?"}
+    E -->|yes| F["gemini_planner recommend_for_repo"]
+    E -->|no| G["gemini_planner recommend_all - the 58"]
+    B -->|analyze| H["evm_re analyze bytecode"]
+    H --> I["Add signatures, is_erc20, risk flags, standards score + audit"]
+    B -->|experiment| J["ProjectRegistry + pipeline run"]
+    J --> K{"--fail flag?"}
+    K -->|yes| L["Run 1/0 - failure removed by registry"]
+    K -->|no| M["Run ok lambda - success recorded"]
+    B -->|registry| N["Registry summary JSON"]
+    B -->|reason| O["learner reason over offline KB"]
+    C --> Z["Print JSON, return 0"]
+    D --> Z
+    F --> Z
+    G --> Z
+    I --> Z
+    L --> Z
+    M --> Z
+    N --> Z
+    O --> Z
+
+8/48 — src/mon_ultra_matrix/compressor.py
+
+flowchart TD
+    A["Input: bytes"] --> B["chunk: split into 4096-byte chunks"]
+    B --> C["dedup_chunks: SHA-256 each chunk"]
+    C --> D{"Hash seen before?"}
+    D -->|yes| E["Skip duplicate"]
+    D -->|no| F["Keep chunk, record hash"]
+    E --> G["Join unique chunks"]
+    F --> G
+    G --> H["compress: zlib level 9 + ratio metadata"]
+    H --> I["decompress: zlib restore original"]
     
 ## The 58 - widest-level roster (the payload moment)
 

@@ -651,6 +651,68 @@ flowchart TD
     B -->|egg-info| F["Ignored: build artifacts"]
     B -->|no match| G["Tracked normally"]
 
+42/48 — docs/CURRICULUM.md
+
+flowchart TD
+    A["Step 1: EVM basics - disassemble, selectors"] --> B["Step 2: Token RE - prove ERC20 from selectors"]
+    B --> C["Step 3: Proxy RE - DELEGATECALL to implementation"]
+    C --> D["Step 4: Protocol RE - fingerprint Aave, Kuru, Uniswap"]
+    D --> E["Step 5: Forensics - TxGraph counterparties + hops"]
+    E --> F["Step 6: Standards - defend every failed control"]
+    F --> G["Step 7: Experiments - one failure removed, one success kept"]
+    G --> H["Step 8: Matrix - work only from successful cells"]
+    H --> I["Step 9: Risk - model the Nov 24 2026 unlock"]
+    I --> J["Step 10: Ship - testnet plan only after matrix green"]
+
+43/48 — docs/MERGE_MAP.md
+
+flowchart TD
+    A["Merge Map document"] --> B["First merge: 7 GitHub repos to native modules"]
+    A --> C["Second merge: 10 Docker Hub images to modules + registry"]
+    A --> D["Agent planning: Gemini Pro Thinking origin, Google-FlowX"]
+    B --> E["Reader can trace every module back to its source repo or image"]
+    C --> E
+    D --> E
+
+44/48 — docs/MONAD_ARCHITECTURE.md
+
+flowchart TD
+    A["Monad facts sheet"] --> B["Chain: L1, mainnet Nov 24 2025, full EVM compat"]
+    A --> C["Performance: 10,000 TPS, 0.4s blocks, 0.8s finality"]
+    A --> D["Core: parallel execution, pipelining, MonadBFT, RaptorCast, MonadDb"]
+    D --> E["RE consequence: ordering + MEV assumptions change vs sequential Ethereum"]
+    A --> F["Snapshot: 989M tx, 9M+ wallets, 143+ apps, TVL 974.7M / 1.03B"]
+    A --> G["Token: MON 100B supply - watch Nov 24 2026 cliff unlock 16.6B"]
+    A --> H["Top protocols: Aave, Kuru, Uniswap, PancakeSwap, Balancer, Curve"]
+
+45/48 — labs/README.md
+
+flowchart TD
+    A["Labs: educational, local-only samples"] --> B["Sample dispatcher bytecode embedded in tests"]
+    B --> C["Disassemble with analyze"]
+    A --> D["Build your own: compile small Solidity for Monad testnet"]
+    D --> E["Paste runtime bytecode into analyze"]
+    E --> F["Full matrix: selectors, ERC20 check, standards, risk flags, fingerprint"]
+    A --> G["Scope rule: only wallets + contracts you own or may study"]
+
+46/48 — README.md
+
+flowchart TD
+    A["README.md: project front door"] --> B["Cover image + badges: CI + Docker Publish"]
+    B --> C["Badge wall: stack, Web3, platform, low-level, DevOps, cloud"]
+    C --> D["The merge: 7 repos explained"]
+    D --> E["Second merge: 10 Docker images explained"]
+    E --> F["The 58 Agents: architecture + mermaid diagrams"]
+    F --> G["Widest-level roster + full duty roster: all 17 pipelines"]
+    G --> H["How a payload flows: intake, widest level, convergence, exit"]
+    H --> I["Structure tree + install + run instructions"]
+
+47/48 — LICENSE
+
+flowchart TD
+    A["LICENSE: MIT"] --> B["Anyone may use, copy, but can't modify, distribute"]
+    B --> C["Condition: keep the copyright + license notice"]
+    C --> D["Software as-is, warranty"]
     
 ## The 58 - widest-level roster (the payload moment)
 

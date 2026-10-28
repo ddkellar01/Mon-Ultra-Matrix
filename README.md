@@ -2,6 +2,8 @@
 
 [![Profile views](https://komarev.com/ghpvc/?username=ddkellar01&label=Profile%20views&color=836EF9&style=flat-square)](https://github.com/ddkellar01)
 [![Visitors](https://visitor-badge.laobi.icu/badge?page_id=ddkellar01.Mon-Ultra-Matrix)](https://github.com/ddkellar01/Mon-Ultra-Matrix)
+[![CI](https://github.com/ddkellar01/Mon-Ultra-Matrix/actions/workflows/ci.yml/badge.svg)](https://github.com/ddkellar01/Mon-Ultra-Matrix/actions/workflows/ci.yml)
+[![Docker Publish](https://github.com/ddkellar01/Mon-Ultra-Matrix/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ddkellar01/Mon-Ultra-Matrix/actions/workflows/docker-publish.yml)
 
 ## 🧰 Tech Stack & Architecture Badges
 

@@ -226,6 +226,144 @@ flowchart TD
     F --> G
     G --> H["compress: zlib level 9 + ratio metadata"]
     H --> I["decompress: zlib restore original"]
+
+9/48 — src/mon_ultra_matrix/contract_audit.py
+
+flowchart TD
+    A["Input: contract bytecode hex"] --> B["evm_re disassemble to opcode list"]
+    B --> C{"CALL before a later SSTORE?"}
+    C -->|yes| D["Finding: reentrancy lead"]
+    B --> E{"DELEGATECALL present?"}
+    E -->|yes| F["Finding: proxy / upgrade surface"]
+    B --> G{"SELFDESTRUCT present?"}
+    G -->|yes| H["Finding: contract can be destroyed"]
+    B --> I{"Any CALL?"}
+    I -->|yes| J["Finding: unchecked-call lead"]
+    D --> K["Return findings list"]
+    F --> K
+    H --> K
+    J --> K
+    K --> L["monad_parallel_notes: parallel-execution race warnings"]
+
+10/48 - src/mon_ultra_matrix/deconstruction.py
+
+flowchart TD
+    A["Input: bytecode hex"] --> B["evm_re disassemble"]
+    B --> C["Strip dead opcodes: STOP, INVALID, REVERT"]
+    C --> D["Core logic set + fluff ratio"]
+    D --> E["Count SSTORE writes + external calls"]
+    E --> F["Return core profile"]
+    A2["Input: text"] --> B2["deconstruct_text: drop filler words"]
+    B2 --> C2["Return load-bearing terms only"]
+
+11/48 — src/mon_ultra_matrix/deployer.py
+
+flowchart TD
+    A["Input: registry entry"] --> B{"status == SUCCESS?"}
+    B -->|no| C["deploy: False - FAILED projects are removed, never deployed"]
+    B -->|yes| D["deploy: True on monad-testnet"]
+    D --> E["Steps: verify bytecode hash"]
+    E --> F["Deploy to testnet"]
+    F --> G["Run matrix checks"]
+    G --> H["Promote to mainnet only if testnet matrix is green"]
+
+12/48 - src/mon_ultra_matrix/docker_images.py
+
+flowchart TD
+    A["IMAGES registry: 10 credkellar images"] --> B["Each entry: hub name, pulls snapshot, role, native module"]
+    B --> C["total_pulls: sum snapshots = 6,699"]
+    B --> D["pull_commands: docker pull line per image"]
+    C --> E["Consumed by cli images command"]
+    D --> E
+
+13/48 — src/mon_ultra_matrix/evm_re.py
+
+flowchart TD
+    A["Input: bytecode hex"] --> B["clean_hex: strip 0x, lowercase"]
+    B --> C["disassemble: walk bytes with program counter"]
+    C --> D{"Opcode is PUSH1 to PUSH32?"}
+    D -->|yes| E["Consume N argument bytes"]
+    D -->|no| F["Advance 1 byte"]
+    E --> G["Append pc, opcode name, arg"]
+    F --> G
+    G --> H{"More bytes?"}
+    H -->|yes| C
+    H -->|no| I["selectors: scan PUSH4 patterns"]
+    I --> J["entropy: Shannon entropy of bytes"]
+    J --> K["analyze: bytes, instructions, selectors, entropy, DELEGATECALL / SELFDESTRUCT / CREATE flags, SSTORE + SLOAD counts"]
+
+14/48 — src/mon_ultra_matrix/experiment.py
+
+flowchart TD
+    A["pipeline: run experiment in sandbox"] --> B{"Experiment status?"}
+    B -->|SUCCESS| C{"test_fn provided?"}
+    C -->|yes| D["Run test in sandbox"]
+    D --> E{"Test status?"}
+    E -->|FAILED| F["Mark FAILED with lesson: test failed"]
+    E -->|SUCCESS| G["Mark deployable"]
+    C -->|no| G
+    B -->|FAILED| F
+    F --> H["registry.record"]
+    G --> H
+    H --> I{"Entry status == SUCCESS?"}
+    I -->|no| J["remove_failures purge + recorded: False, removed: True"]
+    I -->|yes| K["Append JSONL with timestamp, recorded: True"]
+    J --> L["summary: total kept, successful, failed always 0"]
+    K --> L
+
+15/48 — src/mon_ultra_matrix/forensics.py
+
+flowchart TD
+    A["Input: analysis dict from evm_re"] --> B{"has_delegatecall?"}
+    B -->|yes| C["Flag: proxy / upgrade risk"]
+    A --> D{"has_selfdestruct?"}
+    D -->|yes| E["Flag: contract can be destroyed"]
+    A --> F{"entropy over 7.5?"}
+    F -->|yes| G["Flag: possible obfuscation"]
+    A --> H{"No selectors?"}
+    H -->|yes| I["Flag: not a standard dispatcher"]
+    C --> J["Return risk flags list"]
+    E --> J
+    G --> J
+    I --> J
+    A2["Address helpers"] --> B2["is_valid_evm_address: 0x + 42 chars + hex"]
+    B2 --> C2["checksum_note: mixed case = checksummed"]
+
+16/48 - src/mon_ultra_matrix/gemini_planner.py
+
+flowchart TD
+    A["REPO_GRAPHS: 17 task graphs, subtask + ms + dependencies"] --> B["levels_of: topological sort into levels"]
+    B --> C{"Any subtask ready? deps all in earlier levels"}
+    C -->|no| D["Raise: dependency cycle"]
+    C -->|yes| E["Width = widest level size"]
+    E --> F["recommend: agents = width, queue wait 0"]
+    F --> G["Critical path = sum of slowest subtask per level"]
+    G --> H["Build roster: agent id, role, subtask, level, duration"]
+    F --> I["recommend_all: sum widths = 58 unified"]
+    A2["Optional: GEMINI_API_KEY set?"] --> B2{"call_gemini"}
+    B2 -->|key + success| C2["Gemini Pro, thinking budget 32768, returns graph JSON"]
+    B2 -->|no key or any error| D2["Deterministic planner stays source of truth - never raises"]
+
+17/48 — src/mon_ultra_matrix/globe.py
+
+flowchart TD
+    A["Input: protocol names + tx keys"] --> B["point_for: SHA-256 of key"]
+    B --> C["Derive pseudo lat -85..85 and lng -175..175 from hash bits"]
+    C --> D["backend_payload: points list"]
+    D --> E["Arcs: chain consecutive protocol points"]
+    E --> F["Meta: source + renderer tags"]
+    F --> G["frontend_snippet: embed payload as window.GLOBE_DATA script"]
+
+18/48 — src/mon_ultra_matrix/honeypot.py
+
+flowchart TD
+    A["Input: SSH honeypot log text"] --> B["Regex per line: IP, user, password"]
+    B --> C{"Line matches?"}
+    C -->|yes| D["Count attempt: IP, user, password counters"]
+    C -->|no| E["Skip line"]
+    D --> F["Top 5 attackers, users, passwords"]
+    E --> F
+    F --> G["bait_note: root bait - every attempt hostile, log never allow"]
     
 ## The 58 - widest-level roster (the payload moment)
 

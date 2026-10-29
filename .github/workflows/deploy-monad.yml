@@ -33,4 +33,5 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          python -m mon_ultra_matrix
+          # Pass a valid subcommand/arguments if required by your CLI (change 'stats' to your desired command)
+          python -m mon_ultra_matrix --help

@@ -1,0 +1,15 @@
+from uniswap import Uniswap
+
+address = "0x6E1c7069aA20CECDe7aa69F32502fC17D4589738"
+private_key = "YOUR_PRIVATE_KEY"
+provider = "https://mainnet.infura.io/v3/YOUR_INFURA_KEY"
+
+# Initialize Uniswap (e.g., version 3)
+uniswap = Uniswap(address=address, private_key=private_key, version=3, provider=provider)
+
+# Define token contract addresses (e.g., WETH and DAI)
+weth = "0x4200000000000000000000000000000000000006"
+dai = "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1"
+
+# Execute a trade (selling 0.1 WETH for DAI)
+uniswap.make_trade(weth, dai, 10**17, fee=500)

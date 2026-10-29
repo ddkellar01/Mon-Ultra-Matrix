@@ -22,8 +22,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install .
 
-      - name: Run Monad Deployment / Script
+      - name: Run Monad Package Execution
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           MONAD_TESTNET_RPC_URL: ${{ secrets.MONAD_TESTNET_RPC_URL }}
@@ -32,4 +33,4 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          python main.py
+          python -m mon_ultra_matrix
